@@ -2,7 +2,7 @@
   "name": "study-timer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://erichan42.github.io/study-timer",
+  "homepage": "https://erichan42.github.io/Study-Timer",
   "dependencies": {
     "gh-pages": "^2.1.1",
     "react": "^16.11.0",
