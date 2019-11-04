@@ -1,7 +1,7 @@
 import React from 'react';
-import './StartClock.css';
+import './Timer.css';
 
-class StartClock extends React.Component {
+class Timer extends React.Component {
     
     state = {
         toggle: false,
