@@ -2,10 +2,13 @@ import React from 'react';
 import './Timer.css';
 
 class Timer extends React.Component {
-    
+
     state = {
         toggle: false,
-        timer: 0
+        buttonName: ["Start","Pause"],
+        startTime: Date.now(),
+        timer: 0,
+        reset: true
     }
 
     constructor (props) {
@@ -13,37 +16,62 @@ class Timer extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    startTimer = setInterval((e) => {
-        if (this.state.toggle) {
-            this.setState((state) => {
-                return {timer: (state.timer + 1)}
-            });
-        }
-    }, 10);
+    componentDidMount() {
+        this.startTimer = setInterval((e) => {
+            if (this.state.toggle) {
+                this.setState((state) => {
+                    return {timer: (Date.now() - state.startTime)}
+                });
+            }
+        }, 1);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.startTimer);
+    }
 
     handleClick(e) {
         e.preventDefault();
-        
-        this.setState((state) => {
-            return {toggle: !state.toggle}
-        });
-        console.log(this.state.toggle);
+
+        switch (e.target.className) {
+            case ("timer-button start"):
+                this.setState((state) => {
+                    return {toggle: !state.toggle,
+                            startTime: state.reset ? Date.now() : state.startTime,
+                            reset: false}
+                });
+                break;
+            case ("timer-button reset"):
+                this.setState((state) => {
+                    return {reset: true,
+                            timer: 0}
+                });
+                break;
+            default:
+        }
     }
 
     render() {
-        let seconds = ("0" + (Math.floor(this.state.timer / 100) % 60)).slice(-2);
-        let minutes = ("0" + (Math.floor(this.state.timer / 6000) % 60)).slice(-2);
-        let hours = ("0" + Math.floor(this.state.timer / 360000)).slice(-2);
+        let centiseconds = ("0" + (Math.floor(this.state.timer / 10))).slice(-2);
+        let seconds = ("0" + (Math.floor(this.state.timer / 1000) % 60)).slice(-2);
+        let minutes = ("0" + (Math.floor(this.state.timer / 60000) % 60)).slice(-2);
+        let hours = ("0" + Math.floor(this.state.timer / 36000000)).slice(-2);
 
         return(
             <div className="timer">
                 <h1 className="timer-display">
-                    {hours}:{minutes}:{seconds}
+                    {hours}:{minutes}:{seconds}:{centiseconds}
                 </h1>
-                <button className="timer-button"
-                        onClick={(e) => this.handleClick(e)}>
-                            Start
-                </button>
+                <div className="timer-button-container">
+                    <button className="timer-button start"
+                            onClick={(e) => this.handleClick(e)}>
+                                {this.state.buttonName[this.state.toggle ? 1 : 0]}
+                    </button>
+                    <button className="timer-button reset"
+                            onClick={(e) => this.handleClick(e)}>
+                                Reset
+                    </button>
+                </div>
             </div>
         );
     }
