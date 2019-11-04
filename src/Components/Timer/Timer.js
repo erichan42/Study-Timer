@@ -49,4 +49,4 @@ class Timer extends React.Component {
     }
 }
 
-export default StartClock;
+export default Timer;

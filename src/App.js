@@ -1,6 +1,6 @@
 import React from 'react';
-import StartClock from './Components/StartClock/StartClock';
+import Timer from './Components/Timer/Timer';
 
-const App = () => <StartClock />;
+const App = () => <Timer />;
 
 export default App;
