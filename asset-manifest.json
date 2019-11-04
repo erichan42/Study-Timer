@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/study-timer/static/css/main.981a1309.chunk.css",
+    "main.js": "/study-timer/static/js/main.76c8beb7.chunk.js",
+    "main.js.map": "/study-timer/static/js/main.76c8beb7.chunk.js.map",
+    "runtime-main.js": "/study-timer/static/js/runtime-main.e6cfae6a.js",
+    "runtime-main.js.map": "/study-timer/static/js/runtime-main.e6cfae6a.js.map",
+    "static/js/2.086ee98e.chunk.js": "/study-timer/static/js/2.086ee98e.chunk.js",
+    "static/js/2.086ee98e.chunk.js.map": "/study-timer/static/js/2.086ee98e.chunk.js.map",
+    "index.html": "/study-timer/index.html",
+    "precache-manifest.34e666f1285d2381b08a31d60c24db7c.js": "/study-timer/precache-manifest.34e666f1285d2381b08a31d60c24db7c.js",
+    "service-worker.js": "/study-timer/service-worker.js",
+    "static/css/main.981a1309.chunk.css.map": "/study-timer/static/css/main.981a1309.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e6cfae6a.js",
+    "static/js/2.086ee98e.chunk.js",
+    "static/css/main.981a1309.chunk.css",
+    "static/js/main.76c8beb7.chunk.js"
+  ]
+}
