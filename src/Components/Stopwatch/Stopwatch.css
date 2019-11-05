@@ -1,0 +1,21 @@
+.timer {
+    margin:0 auto;
+    width: 100%;
+}
+
+.timer-display {
+    text-align: center;
+}
+
+.timer-button-container {
+    width: 100%;
+    text-align: center;
+    display:0 inline-block;
+}
+
+.timer-button {
+    height: 50px;
+    width: 175px;
+    background-color: white;
+}
+

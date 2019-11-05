@@ -1,6 +1,6 @@
 import React from 'react';
-import Timer from './Components/Timer/Timer';
+import Stopwatch from './Components/Stopwatch/Stopwatch';
 
-const App = () => <Timer />;
+const App = () => <Stopwatch />;
 
 export default App;
