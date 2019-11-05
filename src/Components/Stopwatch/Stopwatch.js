@@ -34,14 +34,14 @@ class Stopwatch extends React.Component {
         e.preventDefault();
 
         switch (e.target.className) {
-            case ("timer-button start"):
+            case ("stopwatch-button start"):
                 this.setState((state) => {
                     return {toggle: !state.toggle,
                             startTime: state.reset ? Date.now() : state.startTime,
                             reset: false}
                 });
                 break;
-            case ("timer-button reset"):
+            case ("stopwatch-button reset"):
                 this.setState((state) => {
                     return {reset: true,
                             timer: 0}
@@ -58,16 +58,16 @@ class Stopwatch extends React.Component {
         let hours = ("0" + Math.floor(this.state.timer / 36000000)).slice(-2);
 
         return(
-            <div className="timer">
-                <h1 className="timer-display">
+            <div className="stopwatch">
+                <h1 className="stopwatch-display">
                     {hours}:{minutes}:{seconds}:{centiseconds}
                 </h1>
-                <div className="timer-button-container">
-                    <button className="timer-button start"
+                <div className="stopwatch-button-container">
+                    <button className="stopwatch-button start"
                             onClick={(e) => this.handleClick(e)}>
                                 {this.state.buttonName[this.state.toggle ? 1 : 0]}
                     </button>
-                    <button className="timer-button reset"
+                    <button className="stopwatch-button reset"
                             onClick={(e) => this.handleClick(e)}>
                                 Reset
                     </button>

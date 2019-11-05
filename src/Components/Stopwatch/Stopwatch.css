@@ -1,19 +1,19 @@
-.timer {
+.stopwatch {
     margin:0 auto;
     width: 100%;
 }
 
-.timer-display {
+.stopwatch-display {
     text-align: center;
 }
 
-.timer-button-container {
+.stopwatch-button-container {
     width: 100%;
     text-align: center;
     display:0 inline-block;
 }
 
-.timer-button {
+.stopwatch-button {
     height: 50px;
     width: 175px;
     background-color: white;
