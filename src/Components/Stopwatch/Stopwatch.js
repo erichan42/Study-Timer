@@ -1,23 +1,39 @@
 import React from 'react';
 import './Stopwatch.css';
 
+/**
+ * Stopwatch component
+ * @author Eric Han
+ */
 class Stopwatch extends React.Component {
 
     state = {
+        /** Indicates if timer is running */
         toggle: false,
+        /** Changes name of button depending on toggle state */
         buttonName: ["Start","Pause"],
+        /** Initializes the start time since pressing the button */
         startTime: Date.now(),
+        /** Tracks time passed */
         timer: 0,
+        /** Differentiates pause from reset */
         reset: true
     }
 
-    constructor (props) {
-        super(props);
-        this.handleClick = this.handleClick.bind(this);
+    /** Binds functions */
+    constructor () {
+        super();
+        this.handleStartClick = this.handleStartClick.bind(this);
+        this.handleResetClick = this.handleResetClick.bind(this);
     }
 
+    /** Mounts the startTimer function */
     componentDidMount() {
+
+        /** Runs every 1 ms */
         this.startTimer = setInterval((e) => {
+
+            /* Checks if timer should be on */
             if (this.state.toggle) {
                 this.setState((state) => {
                     return {timer: (Date.now() - state.startTime)}
@@ -26,32 +42,38 @@ class Stopwatch extends React.Component {
         }, 1);
     }
 
+    /** Unmounts the startTime */
     componentWillUnmount() {
         clearInterval(this.startTimer);
     }
 
-    handleClick(e) {
+    /** Activates when start/pause is clicked */
+    handleStartClick(e) {
         e.preventDefault();
 
-        switch (e.target.className) {
-            case ("stopwatch-button start"):
-                this.setState((state) => {
-                    return {toggle: !state.toggle,
-                            startTime: state.reset ? Date.now() : state.startTime,
-                            reset: false}
-                });
-                break;
-            case ("stopwatch-button reset"):
-                this.setState((state) => {
-                    return {reset: true,
-                            timer: 0}
-                });
-                break;
-            default:
-        }
+        /* Runs the startTime function */
+        this.setState((state) => {
+            return {toggle: !state.toggle,
+                    startTime: state.reset ? Date.now() : state.startTime,
+                    reset: false}
+        });
+    }
+
+    /** Activates when reset is clicked */
+    handleResetClick(e) {
+        e.preventDefault();
+
+        /* Resets the timer back to 0 */
+        this.setState(() => {
+            return {reset: true,
+                    startTime: Date.now(),
+                    toggle: false,
+                    timer: 0}
+        });
     }
 
     render() {
+        /* Makes the timer display all nice and pretty */
         let centiseconds = ("0" + (Math.floor(this.state.timer / 10))).slice(-2);
         let seconds = ("0" + (Math.floor(this.state.timer / 1000) % 60)).slice(-2);
         let minutes = ("0" + (Math.floor(this.state.timer / 60000) % 60)).slice(-2);
@@ -64,11 +86,11 @@ class Stopwatch extends React.Component {
                 </h1>
                 <div className="stopwatch-button-container">
                     <button className="stopwatch-button start"
-                            onClick={(e) => this.handleClick(e)}>
+                            onClick={(e) => this.handleStartClick(e)}>
                                 {this.state.buttonName[this.state.toggle ? 1 : 0]}
                     </button>
                     <button className="stopwatch-button reset"
-                            onClick={(e) => this.handleClick(e)}>
+                            onClick={(e) => this.handleResetClick(e)}>
                                 Reset
                     </button>
                 </div>
