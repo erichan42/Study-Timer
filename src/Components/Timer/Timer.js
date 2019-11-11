@@ -13,11 +13,13 @@ class Timer extends React.Component {
         /** Changes name of button depending on toggle state */
         buttonName: ["Start","Pause"],
         /** Initializes the start time since pressing the button */
-        startTime: 50000,
+        startTime: 0,
+        /** Queue of times */
+        timeQueue: [100000,5000],
         /** Initializes the start time in Date.now() since pressing the button */
         dateTime: Date.now(),
         /** Tracks time passed */
-        timer: 50000,
+        timer: 0,
         /** Differentiates pause from reset */
         reset: true
     }
@@ -27,7 +29,7 @@ class Timer extends React.Component {
         super();
         this.handleStartClick = this.handleStartClick.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        // this.onSubmit = this.onSubmit.bind(this);
     } 
 
     /** Mounts the startTimer function */
@@ -41,7 +43,8 @@ class Timer extends React.Component {
                 this.setState((state) => {
                     if (state.timer >= 0) return {timer: state.startTime - (Date.now() - state.dateTime)}
                     else return {timer: 0,
-                                toggle:false}
+                                toggle:false,
+                                reset:true}
                 });
             }
         }, 1);
@@ -49,7 +52,7 @@ class Timer extends React.Component {
 
     /** Unmounts the startTime */
     componentWillUnmount() {
-        clearInterval(this.startTimer);
+        clearInterval(this.timer);
     }
     
     // onSubmit(e) {
@@ -62,9 +65,10 @@ class Timer extends React.Component {
 
         /* Runs the startTime function */
         this.setState((state) => {
-            return {toggle: !state.toggle,
-                    startTime: state.reset ? Date.now() : state.startTime,
-                    reset: false}
+            return {reset: false,
+                    toggle: !state.toggle,
+                    startTime: state.reset ? state.timeQueue[0] : state.timer,
+                    dateTime: state.reset ? state.dateTime : Date.now()}
         });
     }
 
@@ -75,6 +79,8 @@ class Timer extends React.Component {
         /* Resets the timer back to 0 */
         this.setState(() => {
             return {reset: true,
+                    dateTime: Date.now(),
+                    toggle: false,
                     timer: 0}
         });
     }
