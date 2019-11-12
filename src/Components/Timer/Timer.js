@@ -16,9 +16,11 @@ class Timer extends React.Component {
         /** Initializes the start time since pressing the button */
         startTime: 0,
         /** Queue of times */
-        timeQueue: [500,200,150],
+        timeQueue: [10,15,20],
         /** Time value */
         value: "",
+        /** Index of timer */
+        index: 0,
         /** Initializes the start time in Date.now() since pressing the button */
         dateTime: Date.now(),
         /** Tracks time passed */
@@ -49,7 +51,8 @@ class Timer extends React.Component {
                     if (state.timer >= 0) return {timer: state.startTime - (Date.now() - state.dateTime)}
                     else return {timer: 0,
                                 toggle:false,
-                                reset:true}
+                                reset:true,
+                                index:(state.index + 1) % state.timeQueue.length}
                 });
             }
         }, 1);
@@ -60,12 +63,15 @@ class Timer extends React.Component {
         clearInterval(this.timer);
     }
     
-    onSubmit(e,value) {
+    onSubmit(e) {
         e.preventDefault();
 
         this.setState((state) => {
-            state.timeQueue.push(this.valueHours * 1000);
-            return {timeQueue: state.timeQueue}
+            if (isNaN(parseInt(state.value)) || parseInt(state.value) <= 0) return;
+            else {
+                state.timeQueue.push(parseInt(state.value));
+                return {timeQueue: state.timeQueue}
+            }
         });
     }
 
@@ -77,7 +83,7 @@ class Timer extends React.Component {
         this.setState((state) => {
             return {reset: false,
                     toggle: !state.toggle,
-                    startTime: state.reset ? state.timeQueue[0] : state.timer,
+                    startTime: state.reset ? state.timeQueue[state.index]*1000 : state.timer,
                     dateTime: state.reset ? Date.now() : state.dateTime}
         });
     }
@@ -92,15 +98,6 @@ class Timer extends React.Component {
                     dateTime: Date.now(),
                     toggle: false,
                     timer: 0}
-        });
-    }
-
-    addTime(e) {
-        e.preventDefault();
-
-        this.setState((state) => {
-            state.timeQueue.push(parseInt(state.value,10)*1000);
-            return {timeQueue: state.timeQueue}
         });
     }
 
@@ -131,16 +128,15 @@ class Timer extends React.Component {
                     {hours}:{minutes}:{seconds}:{centiseconds}
                 </h1>
                 <form className="timer-form"
-                    onSubmit={(e) => this.addTime(e)}>
+                    onSubmit={(e) => this.onSubmit(e)}>
                     <input className="timer-input"
-                        type="number"
                         name="time"
                         placeholder="00:00:00"
                         onChange={this.handleChange}
                         onKeyDown={(e) => this.handleKeyPress(e)}/>
                         <button className="timer-add-time"
                                 type="submit"
-                                onSubmit={(e) => this.addTime(e)}>
+                                onSubmit={(e) => this.onSubmit(e)}>
                                     Add Time
                         </button>
                 </form>
