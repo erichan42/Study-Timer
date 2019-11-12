@@ -1,5 +1,6 @@
 import React from 'react';
 import './Timer.css';
+import Cards from './../Cards/Cards';
 
 /**
  * Timer component
@@ -15,7 +16,7 @@ class Timer extends React.Component {
         /** Initializes the start time since pressing the button */
         startTime: 0,
         /** Queue of times */
-        timeQueue: [],
+        timeQueue: [500,200,150],
         /** Time value */
         value: "",
         /** Initializes the start time in Date.now() since pressing the button */
@@ -27,8 +28,8 @@ class Timer extends React.Component {
     }
 
     /** Binds functions */
-    constructor () {
-        super();
+    constructor (props) {
+        super(props);
         this.handleStartClick = this.handleStartClick.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -131,20 +132,12 @@ class Timer extends React.Component {
                 </h1>
                 <form className="timer-form"
                     onSubmit={(e) => this.addTime(e)}>
-                    <input className="timer-input hours"
+                    <input className="timer-input"
                         type="number"
-                        name="hours"
-                        placeholder="hours"
+                        name="time"
+                        placeholder="00:00:00"
                         onChange={this.handleChange}
                         onKeyDown={(e) => this.handleKeyPress(e)}/>
-                    {/* <input className="timer-input minutes"
-                        type="number"
-                        placeholder="minutes"
-                        onKeyDown={(e) => this.handleKeyPress(e)}/>
-                    <input className="timer-input seconds"
-                        type="number"
-                        placeholder="seconds"
-                        onKeyDown={(e) => this.handleKeyPress(e)}/> */}
                         <button className="timer-add-time"
                                 type="submit"
                                 onSubmit={(e) => this.addTime(e)}>
@@ -160,6 +153,9 @@ class Timer extends React.Component {
                             onClick={(e) => this.handleResetClick(e)}>
                                 Reset
                     </button>
+                </div>
+                <div className="timer-time-container">
+                    {this.state.timeQueue.map(timeQueue => <Cards>{timeQueue}</Cards>)}
                 </div>
             </div>
         );

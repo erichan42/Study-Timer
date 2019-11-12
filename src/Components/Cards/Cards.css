@@ -1,0 +1,13 @@
+.cards {
+    margin:0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 30%;
+    height: 75px;
+    background-color: white;
+    text-align:center;
+}
+
+.time-names {
+    margin: auto;
+}
