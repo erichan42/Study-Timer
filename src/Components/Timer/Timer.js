@@ -15,7 +15,9 @@ class Timer extends React.Component {
         /** Initializes the start time since pressing the button */
         startTime: 0,
         /** Queue of times */
-        timeQueue: [100000,5000],
+        timeQueue: [],
+        /** Time value */
+        value: "",
         /** Initializes the start time in Date.now() since pressing the button */
         dateTime: Date.now(),
         /** Tracks time passed */
@@ -29,7 +31,9 @@ class Timer extends React.Component {
         super();
         this.handleStartClick = this.handleStartClick.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
-        // this.onSubmit = this.onSubmit.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     } 
 
     /** Mounts the startTimer function */
@@ -55,9 +59,14 @@ class Timer extends React.Component {
         clearInterval(this.timer);
     }
     
-    // onSubmit(e) {
-    //     e.preventDefault();
-    // }
+    onSubmit(e,value) {
+        e.preventDefault();
+
+        this.setState((state) => {
+            state.timeQueue.push(this.valueHours * 1000);
+            return {timeQueue: state.timeQueue}
+        });
+    }
 
     /** Activates when start/pause is clicked */
     handleStartClick(e) {
@@ -68,7 +77,7 @@ class Timer extends React.Component {
             return {reset: false,
                     toggle: !state.toggle,
                     startTime: state.reset ? state.timeQueue[0] : state.timer,
-                    dateTime: state.reset ? state.dateTime : Date.now()}
+                    dateTime: state.reset ? Date.now() : state.dateTime}
         });
     }
 
@@ -87,16 +96,26 @@ class Timer extends React.Component {
 
     addTime(e) {
         e.preventDefault();
+
+        this.setState((state) => {
+            state.timeQueue.push(parseInt(state.value,10)*1000);
+            return {timeQueue: state.timeQueue}
+        });
     }
 
-    // handleKeyPress(e,field) {
-    //     if (field.name.value.length() === 2) {
-    //         let next = this.refs[field.name].nextSibling;
-    //         if (next && next.tagName === "INPUT") {
-    //             this.refs[field.name].nextSibling.focus();
-    //         }
-    //     }
-    // }
+    handleKeyPress(e) {
+        let checkIfNum = true;
+        if (e.key !== undefined || e.keyCode !== undefined) {
+          // Check if it's a "e", ".", "+" or "-"
+          checkIfNum =  e.key === "e" || e.key === "." || e.key === "+" || e.key === "-" ||
+                        e.keyCode === 69 || e.keyCode === 190 || e.keyCode === 187 || e.keyCode === 189;
+        }
+        return checkIfNum && e.preventDefault();
+    }
+
+    handleChange(e) {
+        this.setState({value: e.target.value});
+    }
 
     render() {
         /* WOW! Look at how nice and pretty the timer display is because of the following four lines */
@@ -110,12 +129,25 @@ class Timer extends React.Component {
                 <h1 className="stopwatch-display">
                     {hours}:{minutes}:{seconds}:{centiseconds}
                 </h1>
-                <form>
-                    <input className="timer-input"
-                        type="timer"
-                        onClick={(e) => this.handleClick(e)}/>
+                <form className="timer-form"
+                    onSubmit={(e) => this.addTime(e)}>
+                    <input className="timer-input hours"
+                        type="number"
+                        name="hours"
+                        placeholder="hours"
+                        onChange={this.handleChange}
+                        onKeyDown={(e) => this.handleKeyPress(e)}/>
+                    {/* <input className="timer-input minutes"
+                        type="number"
+                        placeholder="minutes"
+                        onKeyDown={(e) => this.handleKeyPress(e)}/>
+                    <input className="timer-input seconds"
+                        type="number"
+                        placeholder="seconds"
+                        onKeyDown={(e) => this.handleKeyPress(e)}/> */}
                         <button className="timer-add-time"
-                                onClick={(e) => this.addTime(e)}>
+                                type="submit"
+                                onSubmit={(e) => this.addTime(e)}>
                                     Add Time
                         </button>
                 </form>
