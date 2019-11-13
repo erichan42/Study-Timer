@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Study-Timer/precache-manifest.82c292dd1593aae509eebdae96693136.js"
+  "/Study-Timer/precache-manifest.2522307d459a50c8ed3c7faef1d92a2f.js"
 );
 
 self.addEventListener('message', (event) => {
