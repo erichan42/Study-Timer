@@ -49,13 +49,21 @@ class Timer extends React.Component {
             if (this.state.toggle) {
                 this.setState((state) => {
                     if (state.timer >= 0) return {timer: state.startTime - (Date.now() - state.dateTime)}
-                    else 
-                     {
-                         return {timer: 0,
+                    else {
+                        if (Notification.permission === "granted")
+                            var notification = new Notification("Time's up!");
+                        else if (Notification.permission !== "denied") {
+                            Notification.requestPermission().then(function (permission) {
+                                if (permission === "granted") {
+                                    var notification = new Notification("Time's up!");
+                                }
+                            });
+                        }
+                        return {timer: 0,
                                 toggle:false,
                                 reset:true,
                                 index:(state.index + 1) % state.timeQueue.length}
-                         }
+                    }
                 });
             }
         }, 1);
