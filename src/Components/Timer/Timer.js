@@ -16,7 +16,7 @@ class Timer extends React.Component {
         /** Initializes the start time since pressing the button */
         startTime: 0,
         /** Queue of times */
-        timeQueue: [10,15,20],
+        timeQueue: [],
         /** Time value */
         value: "",
         /** Index of timer */
@@ -49,10 +49,13 @@ class Timer extends React.Component {
             if (this.state.toggle) {
                 this.setState((state) => {
                     if (state.timer >= 0) return {timer: state.startTime - (Date.now() - state.dateTime)}
-                    else return {timer: 0,
+                    else 
+                     {
+                         return {timer: 0,
                                 toggle:false,
                                 reset:true,
                                 index:(state.index + 1) % state.timeQueue.length}
+                         }
                 });
             }
         }, 1);
@@ -70,7 +73,8 @@ class Timer extends React.Component {
             if (isNaN(parseInt(state.value)) || parseInt(state.value) <= 0) return;
             else {
                 state.timeQueue.push(parseInt(state.value));
-                return {timeQueue: state.timeQueue}
+                return {timeQueue: state.timeQueue,
+                        value:""}
             }
         });
     }
@@ -81,10 +85,11 @@ class Timer extends React.Component {
 
         /* Runs the startTime function */
         this.setState((state) => {
-            return {reset: false,
-                    toggle: !state.toggle,
+            return {dateTime: Date.now(),
                     startTime: state.reset ? state.timeQueue[state.index]*1000 : state.timer,
-                    dateTime: state.reset ? Date.now() : state.dateTime}
+                    toggle: !state.toggle,
+                    reset: false
+                }
         });
     }
 
@@ -97,7 +102,8 @@ class Timer extends React.Component {
             return {reset: true,
                     dateTime: Date.now(),
                     toggle: false,
-                    timer: 0}
+                    timer: 0,
+                    index: this.state.index + 1}
         });
     }
 
@@ -131,6 +137,7 @@ class Timer extends React.Component {
                     onSubmit={(e) => this.onSubmit(e)}>
                     <input className="timer-input"
                         name="time"
+                        type="number"
                         placeholder="00:00:00"
                         onChange={this.handleChange}
                         onKeyDown={(e) => this.handleKeyPress(e)}/>
