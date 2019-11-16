@@ -13,7 +13,8 @@ class Stopwatch extends React.Component {
         /** Changes name of button depending on toggle state */
         buttonName: ["Start","Pause"],
         /** Initializes the start time since pressing the button */
-        startTime: Date.now(),
+        startTime: 0,
+        dateTime: Date.now(),
         /** Tracks time passed */
         timer: 0,
         /** Differentiates pause from reset */
@@ -36,7 +37,7 @@ class Stopwatch extends React.Component {
             /* Checks if timer should be on */
             if (this.state.toggle) {
                 this.setState((state) => {
-                    return {timer: (Date.now() - state.startTime)}
+                    return {timer: state.startTime + (Date.now() - state.dateTime)}
                 });
             }
         }, 1);
@@ -53,8 +54,9 @@ class Stopwatch extends React.Component {
 
         /* Runs the startTime function */
         this.setState((state) => {
-            return {toggle: !state.toggle,
-                    startTime: state.reset ? Date.now() : state.startTime,
+                return{toggle: !state.toggle,
+                    dateTime: Date.now(),
+                    startTime: state.reset ? 0 : state.timer,
                     reset: false}
         });
     }

@@ -1,11 +1,18 @@
 import React from 'react';
 import Stopwatch from './Components/Stopwatch/Stopwatch';
 import Timer from './Components/Timer/Timer';
+import './Styles/index.css'
 
 const App = () => (
     <div>
-        <Stopwatch />
-        <Timer />
+        <div className="container">
+            <h1>Stopwatch</h1>
+            <Stopwatch />
+        </div>
+        <div className="container">
+            <h1>Timer</h1>
+            <Timer />
+        </div>
     </div>
 );
 

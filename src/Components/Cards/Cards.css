@@ -1,7 +1,7 @@
 .cards {
     margin:0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 25px;
+    margin-bottom: 25px;
     width: 30%;
     height: 75px;
     background-color: white;
@@ -9,5 +9,6 @@
 }
 
 .time-names {
-    margin: auto;
+    height:inherit;
+    vertical-align: middle;
 }

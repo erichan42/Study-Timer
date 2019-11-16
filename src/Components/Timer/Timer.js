@@ -59,10 +59,10 @@ class Timer extends React.Component {
                                 }
                             });
                         }
-                        return {timer: 0,
-                                toggle:false,
+                        return {toggle:false,
                                 reset:true,
-                                index:(state.index + 1) % state.timeQueue.length}
+                                index:(state.index + 1) % state.timeQueue.length,
+                                timer: state.timeQueue[state.index]}
                     }
                 });
             }
