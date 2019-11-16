@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/Study-Timer/static/css/main.4689d765.chunk.css",
-    "main.js": "/Study-Timer/static/js/main.34ed2f31.chunk.js",
-    "main.js.map": "/Study-Timer/static/js/main.34ed2f31.chunk.js.map",
+    "main.css": "/Study-Timer/static/css/main.c857d8d7.chunk.css",
+    "main.js": "/Study-Timer/static/js/main.a211bef6.chunk.js",
+    "main.js.map": "/Study-Timer/static/js/main.a211bef6.chunk.js.map",
     "runtime-main.js": "/Study-Timer/static/js/runtime-main.4cee5d50.js",
     "runtime-main.js.map": "/Study-Timer/static/js/runtime-main.4cee5d50.js.map",
     "static/js/2.97145ac1.chunk.js": "/Study-Timer/static/js/2.97145ac1.chunk.js",
     "static/js/2.97145ac1.chunk.js.map": "/Study-Timer/static/js/2.97145ac1.chunk.js.map",
     "index.html": "/Study-Timer/index.html",
-    "precache-manifest.41718cf68129297713af3199057e4984.js": "/Study-Timer/precache-manifest.41718cf68129297713af3199057e4984.js",
+    "precache-manifest.3b4ca8f1c01f443fd7efa2092df641da.js": "/Study-Timer/precache-manifest.3b4ca8f1c01f443fd7efa2092df641da.js",
     "service-worker.js": "/Study-Timer/service-worker.js",
-    "static/css/main.4689d765.chunk.css.map": "/Study-Timer/static/css/main.4689d765.chunk.css.map"
+    "static/css/main.c857d8d7.chunk.css.map": "/Study-Timer/static/css/main.c857d8d7.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.4cee5d50.js",
     "static/js/2.97145ac1.chunk.js",
-    "static/css/main.4689d765.chunk.css",
-    "static/js/main.34ed2f31.chunk.js"
+    "static/css/main.c857d8d7.chunk.css",
+    "static/js/main.a211bef6.chunk.js"
   ]
 }
