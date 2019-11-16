@@ -17,8 +17,10 @@ class Timer extends React.Component {
         startTime: 0,
         /** Queue of times */
         timeQueue: [],
-        /** Time value */
-        value: "",
+        /** Time values */
+        valueH: "",
+        valueM: "",
+        valueS: "",
         /** Index of timer */
         index: 0,
         /** Initializes the start time in Date.now() since pressing the button */
@@ -37,6 +39,10 @@ class Timer extends React.Component {
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+
+        // this.hr = React.createRef();
+        // this.min = React.createRef();
+        // this.sec = React.createRef();
     } 
 
     /** Mounts the startTimer function */
@@ -48,23 +54,28 @@ class Timer extends React.Component {
             /* Checks if timer should be on */
             if (this.state.toggle) {
                 this.setState((state) => {
-                    if (state.timer >= 0) return {timer: state.startTime - (Date.now() - state.dateTime)}
-                    else {
-                        if (Notification.permission === "granted")
-                            var notification = new Notification("Time's up!");
-                        else if (Notification.permission !== "denied") {
-                            Notification.requestPermission().then(function (permission) {
-                                if (permission === "granted") {
-                                    var notification = new Notification("Time's up!");
-                                }
-                            });
+                    if (state.timeQueue.length > 0) {
+                        if (state.timer >= 0) return {timer: state.startTime - (Date.now() - state.dateTime)}
+                        else {
+                            if (Notification.permission === "granted")
+                                new Notification("Time's up!");
+                            else if (Notification.permission !== "denied") {
+                                Notification.requestPermission().then(function (permission) {
+                                    if (permission === "granted") {
+                                        new Notification("Time's up!");
+                                    }
+                                });
+                            }
+                            return {toggle:false,
+                                    reset:true,
+                                    index:(state.index + 1) % state.timeQueue.length,
+                                    timer: state.timeQueue[state.index]}
                         }
-                        return {toggle:false,
-                                reset:true,
-                                index:(state.index + 1) % state.timeQueue.length,
-                                timer: state.timeQueue[state.index]}
+                    } else {
+                        return {toggle:false}
                     }
                 });
+
             }
         }, 1);
     }
@@ -78,11 +89,15 @@ class Timer extends React.Component {
         e.preventDefault();
 
         this.setState((state) => {
-            if (isNaN(parseInt(state.value)) || parseInt(state.value) <= 0) return;
-            else {
-                state.timeQueue.push(parseInt(state.value));
-                return {timeQueue: state.timeQueue,
-                        value:""}
+            let timeVal = 0;
+
+            if (!(isNaN(parseInt(state.valueH)) || parseInt(state.valueH) <= 0)) timeVal += parseInt(state.valueH * 3600);
+            if (!(isNaN(parseInt(state.valueM)) || parseInt(state.valueM) <= 0)) timeVal += parseInt(state.valueM * 60);
+            if (!(isNaN(parseInt(state.valueS)) || parseInt(state.valueS) <= 0)) timeVal += parseInt(state.valueS);
+
+            if (timeVal !== 0) {
+                state.timeQueue.push(parseInt(timeVal));
+                return {timeQueue: state.timeQueue}
             }
         });
     }
@@ -126,7 +141,10 @@ class Timer extends React.Component {
     }
 
     handleChange(e) {
-        this.setState({value: e.target.value});
+        this.setState({valueH: this.refs.hr.value,
+            valueM: this.refs.min.value,
+            valueS: this.refs.sec.value
+        });
     }
 
     render() {
@@ -143,10 +161,27 @@ class Timer extends React.Component {
                 </h1>
                 <form className="timer-form"
                     onSubmit={(e) => this.onSubmit(e)}>
-                    <input className="timer-input"
+                    <input className="timer-input hours"
+                        ref="hr"
                         name="time"
                         type="number"
-                        placeholder="00:00:00"
+                        placeholder="H"
+                        onChange={this.handleChange}
+                        onKeyDown={(e) => this.handleKeyPress(e)}/>
+                    <span> : </span>
+                    <input className="timer-input minutes"
+                        ref="min"
+                        name="time"
+                        type="number"
+                        placeholder="M"
+                        onChange={this.handleChange}
+                        onKeyDown={(e) => this.handleKeyPress(e)}/>
+                    <span> : </span>
+                    <input className="timer-input seconds"
+                        ref="sec"
+                        name="time"
+                        type="number"
+                        placeholder="S"
                         onChange={this.handleChange}
                         onKeyDown={(e) => this.handleKeyPress(e)}/>
                         <button className="timer-add-time"
