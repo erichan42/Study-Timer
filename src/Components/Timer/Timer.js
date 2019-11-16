@@ -91,9 +91,15 @@ class Timer extends React.Component {
         this.setState((state) => {
             let timeVal = 0;
 
-            if (!(isNaN(parseInt(state.valueH)) || parseInt(state.valueH) <= 0)) timeVal += parseInt(state.valueH * 3600);
-            if (!(isNaN(parseInt(state.valueM)) || parseInt(state.valueM) <= 0)) timeVal += parseInt(state.valueM * 60);
-            if (!(isNaN(parseInt(state.valueS)) || parseInt(state.valueS) <= 0)) timeVal += parseInt(state.valueS);
+            if (!(isNaN(parseInt(state.valueH)) || parseInt(state.valueH) <= 0)) {
+                timeVal += parseInt(state.valueH * 3600);
+            }
+            if (!(isNaN(parseInt(state.valueM)) || parseInt(state.valueM) <= 0)) {
+                timeVal += parseInt(state.valueM * 60);
+            }
+            if (!(isNaN(parseInt(state.valueS)) || parseInt(state.valueS) <= 0)) {
+                timeVal += parseInt(state.valueS);
+            }
 
             if (timeVal !== 0) {
                 state.timeQueue.push(parseInt(timeVal));
