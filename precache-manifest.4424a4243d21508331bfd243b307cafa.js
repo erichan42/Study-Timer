@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a0e5470248c23c0ab2f2496d5939a12d",
+    "revision": "30feee16f7c3057e866892cff470d0f1",
     "url": "/Study-Timer/index.html"
   },
   {
-    "revision": "e28229a1bba967440011",
+    "revision": "1eb3f262927345dace6d",
     "url": "/Study-Timer/static/css/main.c857d8d7.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Study-Timer/static/js/2.97145ac1.chunk.js"
   },
   {
-    "revision": "e28229a1bba967440011",
-    "url": "/Study-Timer/static/js/main.a211bef6.chunk.js"
+    "revision": "1eb3f262927345dace6d",
+    "url": "/Study-Timer/static/js/main.df741cd4.chunk.js"
   },
   {
     "revision": "d02fb937c311ec5f3258",
