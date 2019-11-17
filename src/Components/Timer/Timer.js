@@ -207,7 +207,7 @@ class Timer extends React.Component {
                     </button>
                 </div>
                 <div className="timer-time-container">
-                    {this.state.timeQueue.map(timeQueue => <Cards>{timeQueue}</Cards>)}
+                    {this.state.timeQueue.map(timeQueue => <Cards>{("0" + (Math.floor(timeQueue/3600))).slice(-2) + ":" + ("0" + (Math.floor(timeQueue/60)-Math.floor(parseInt(timeQueue/3600))*60)).slice(-2) + ":" + ("0" + ((timeQueue - Math.floor(timeQueue/60)*60))).slice(-2)}</Cards>)}
                 </div>
             </div>
         );
