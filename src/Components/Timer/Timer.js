@@ -39,10 +39,6 @@ class Timer extends React.Component {
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-
-        // this.hr = React.createRef();
-        // this.min = React.createRef();
-        // this.sec = React.createRef();
     } 
 
     /** Mounts the startTimer function */
@@ -127,12 +123,12 @@ class Timer extends React.Component {
         e.preventDefault();
 
         /* Resets the timer back to 0 */
-        this.setState(() => {
+        this.setState((state) => {
             return {reset: true,
                     dateTime: Date.now(),
                     toggle: false,
                     timer: 0,
-                    index: this.state.index + 1}
+                    index: (state.index + 1) % state.timeQueue.length}
         });
     }
 
