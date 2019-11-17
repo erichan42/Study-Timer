@@ -158,7 +158,7 @@ class Timer extends React.Component {
         let centiseconds = ("0" + (Math.floor(this.state.timer / 10))).slice(-2);
         let seconds = ("0" + (Math.floor(this.state.timer / 1000) % 60)).slice(-2);
         let minutes = ("0" + (Math.floor(this.state.timer / 60000) % 60)).slice(-2);
-        let hours = ("0" + Math.floor(this.state.timer / 36000000)).slice(-2);
+        let hours = ("0" + Math.floor(this.state.timer / 3600000)).slice(-2);
 
         return(
             <div className="timer">
