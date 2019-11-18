@@ -110,6 +110,7 @@ class Timer extends React.Component {
 
         /* Runs the startTime function */
         this.setState((state) => {
+            if (state.timeQueue.length < 1) return;
             return {dateTime: Date.now(),
                     startTime: state.reset ? state.timeQueue[state.index]*1000 : state.timer,
                     toggle: !state.toggle,
@@ -124,11 +125,13 @@ class Timer extends React.Component {
 
         /* Resets the timer back to 0 */
         this.setState((state) => {
+            if (state.timeQueue.length < 1) return;
+            console.log(state.timeQueue[(state.index + 1) % state.timeQueue.length]);
             return {reset: true,
                     dateTime: Date.now(),
                     toggle: false,
-                    timer: 0,
-                    index: (state.index + 1) % state.timeQueue.length}
+                    index: (state.index + 1) % state.timeQueue.length,
+                    timer: state.timeQueue[state.index]*1000}
         });
     }
 
@@ -151,6 +154,7 @@ class Timer extends React.Component {
 
     render() {
         /* WOW! Look at how nice and pretty the timer display is because of the following four lines */
+        // let centiseconds = ("0" + (Math.floor(this.state.timer / 10))).slice(-2);
         let centiseconds = ("0" + (Math.floor(this.state.timer / 10))).slice(-2);
         let seconds = ("0" + (Math.floor(this.state.timer / 1000) % 60)).slice(-2);
         let minutes = ("0" + (Math.floor(this.state.timer / 60000) % 60)).slice(-2);
