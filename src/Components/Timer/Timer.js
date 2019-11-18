@@ -81,6 +81,7 @@ class Timer extends React.Component {
         clearInterval(this.timer);
     }
     
+    /** Cleans up the time states */
     onSubmit(e) {
         e.preventDefault();
 
@@ -126,7 +127,6 @@ class Timer extends React.Component {
         /* Resets the timer back to 0 */
         this.setState((state) => {
             if (state.timeQueue.length < 1) return;
-            console.log(state.timeQueue[(state.index + 1) % state.timeQueue.length]);
             return {reset: true,
                     dateTime: Date.now(),
                     toggle: false,
@@ -135,6 +135,7 @@ class Timer extends React.Component {
         });
     }
 
+    /** Only allows letters in the input boxes */
     handleKeyPress(e) {
         let checkIfNum = true;
         if (e.key !== undefined || e.keyCode !== undefined) {
@@ -145,6 +146,7 @@ class Timer extends React.Component {
         return checkIfNum && e.preventDefault();
     }
 
+    /** Updates the h/m/s state */
     handleChange(e) {
         this.setState({valueH: this.refs.hr.value,
             valueM: this.refs.min.value,
@@ -154,7 +156,6 @@ class Timer extends React.Component {
 
     render() {
         /* WOW! Look at how nice and pretty the timer display is because of the following four lines */
-        // let centiseconds = ("0" + (Math.floor(this.state.timer / 10))).slice(-2);
         let centiseconds = ("0" + (Math.floor(this.state.timer / 10))).slice(-2);
         let seconds = ("0" + (Math.floor(this.state.timer / 1000) % 60)).slice(-2);
         let minutes = ("0" + (Math.floor(this.state.timer / 60000) % 60)).slice(-2);
