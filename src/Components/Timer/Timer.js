@@ -131,7 +131,7 @@ class Timer extends React.Component {
                     dateTime: Date.now(),
                     toggle: false,
                     index: (state.index + 1) % state.timeQueue.length,
-                    timer: state.timeQueue[state.index]*1000}
+                    timer: state.timeQueue[(state.index + 1) % state.timeQueue.length]*1000}
         });
     }
 
